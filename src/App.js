@@ -11,6 +11,8 @@ function App() {
     setCompanyId(+event.target.value);
   }
 
+  // console.log('APP RENDERS');
+
   return (
     <div className="App">
       <h1>Users by company ID</h1>
