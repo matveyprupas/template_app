@@ -1,23 +1,28 @@
-import logo from './logo.svg';
+import { useState } from "react";
 import './App.css';
+import UsersList from "./UsersList";
 
 function App() {
+
+  const [companyId, setCompanyId] = useState(-1);
+
+  const clickHandler = (event) => {
+    if(event.target.tagName !== "INPUT") return;
+    setCompanyId(+event.target.value);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Users by company ID</h1>
+      <div onClick={clickHandler}>
+        <input type="radio" id="contactChoice1" name="contact" value="1" />
+        <label htmlFor="contactChoice1">Company 1</label>
+        <input type="radio" id="contactChoice2" name="contact" value="2" />
+        <label htmlFor="contactChoice2">Company 2</label>
+        <input type="radio" id="contactChoice3" name="contact" value="3" />
+        <label htmlFor="contactChoice3">Company 3</label>
+      </div>
+      <UsersList companyId={companyId}/>
     </div>
   );
 }
