@@ -1,36 +1,18 @@
-import { useEffect, useState } from 'react';
-import useUsersByCompanyId from './hooks/useUsersByCompanyId';
-import useFilteredUsers from './hooks/useFilteredUsers';
-import filterObject from "./mock/filterObject.json";
+import useUsers from './hooks/useUsers';
 
-function UsersList({companyId}) {
+function UsersList({searchName}) {
 
-  const [isReload, setIsReload] = useState(false)
+  const users = useUsers();
 
-  const usersByCompanyId = useUsersByCompanyId(companyId, isReload, setIsReload);
-  const filteredUsers = useFilteredUsers(filterObject);
-
-  useEffect(()=>{
-    setIsReload(false);
-  }, [])
-
-  const handleReload = () => {
-    setIsReload(true);
-  }
-
-  // console.log('UsersList RENDERS');
+  console.log('UsersList RENDERS');
   return (
     <>
-      <button onClick={handleReload}>Reload Fetch</button>
-      {/* <ul>
-        {usersByCompanyId.map((user) => (
-          <li key={user.name}>{user.name}</li>
-        ))}
-      </ul> */}
       <ul>
-        {filteredUsers.map((user) => (
-          <li key={user.name+user.age+user.companyId}>{user.name}</li>
-        ))}
+        {users.map((user) => {
+          console.log(user.name.toLowerCase(), searchName);
+          if(!user.name.toLowerCase().includes(searchName.toLowerCase()) && !!searchName ) return null;
+          return <li key={user.name+user.age+user.companyId}>{user.name}</li>
+        })}
       </ul>
     </>
   );
