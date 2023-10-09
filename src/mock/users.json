@@ -1,30 +1,57 @@
 [
   {
     "name": "Matvey",
-    "companyId": 1
+    "companyId": 1,
+    "age": 19
   },
   {
     "name": "John",
-    "companyId": 2
+    "companyId": 2,
+    "age": 122
   },
   {
     "name": "Nastia",
-    "companyId": 2
+    "companyId": 2,
+    "age": 1
   },
   {
     "name": "Armen",
-    "companyId": 2
+    "companyId": 2,
+    "age": 1292
   },
   {
     "name": "Lucas",
-    "companyId": 1
+    "companyId": 1,
+    "age": 66
   },
   {
     "name": "Anna",
-    "companyId": 2
+    "companyId": 2,
+    "age": 77
   },
   {
     "name": "Maria",
-    "companyId": 3
+    "companyId": 3,
+    "age": 12
+  },
+  {
+    "name": "John",
+    "companyId": 3,
+    "age": 12
+  },
+  {
+    "name": "John",
+    "companyId": 3,
+    "age": 23
+  },
+  {
+    "name": "John",
+    "companyId": 1,
+    "age": 12
+  },
+  {
+    "name": "Avgistinas",
+    "companyId": 3,
+    "age": 12
   }
 ]
