@@ -1,30 +1,34 @@
-import { useState } from "react";
+import { useState } from 'react';
 import './App.css';
-import UsersList from "./UsersList";
+import ToDoList from './components/ToDoList/ToDoList';
+import initialTasks from "./mock/tasks.json";
+// import { v4 as uuidv4 } from 'uuid';
 
 function App() {
 
-  const [companyId, setCompanyId] = useState(-1);
+  const [tasks, setTasks] = useState(initialTasks);
 
-  const clickHandler = (event) => {
-    if(event.target.tagName !== "INPUT") return;
-    setCompanyId(+event.target.value);
+  const handleChangeTasks = (tasks) => {
+    setTasks(tasks);
   }
 
-  // console.log('APP RENDERS');
+  // const handleDelete = (id) => {
+  //   console.log(id);
+  //   setTasks(tasks.filter(task => id !== task.id))
+  // }
+
+  // const handleAdd = (value) => {  
+  //   if (!value) return;
+  //   const newTask = {title: value, id: uuidv4()}
+  //   setTasks([...tasks, newTask])
+  // }
+
+  console.log('App RENDERS');
 
   return (
     <div className="App">
       <h1>Users by company ID</h1>
-      <div onClick={clickHandler}>
-        <input type="radio" id="contactChoice1" name="contact" value="1" />
-        <label htmlFor="contactChoice1">Company 1</label>
-        <input type="radio" id="contactChoice2" name="contact" value="2" />
-        <label htmlFor="contactChoice2">Company 2</label>
-        <input type="radio" id="contactChoice3" name="contact" value="3" />
-        <label htmlFor="contactChoice3">Company 3</label>
-      </div>
-      <UsersList companyId={companyId}/>
+      <ToDoList tasks={tasks} onChangeTasks={setTasks} />
     </div>
   );
 }
