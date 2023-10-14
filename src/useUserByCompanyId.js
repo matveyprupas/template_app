@@ -10,13 +10,15 @@ const fetchUsers = (companyId) => {
 
     if(!users.length) reject('0 users');
 
-    const result = users.filter(user => user.companyId === companyId)
+    const result = users.filter(user => user.companyId === +companyId)
 
     setTimeout(() => {
       resolve(result)
     }, 2500);
   })
 } 
+
+const cacheUsers = new Map();
 
 const useUsersByCompanyId = (companyId) => {
   const [users, setUsers] = useState([]);
@@ -25,17 +27,25 @@ const useUsersByCompanyId = (companyId) => {
   useEffect(() => {
     setIsLoading(true);
 
-    fetchUsers(companyId)
-    .then(res => {
-      setUsers(res);
+    if(cacheUsers.has(companyId)) {
+      setUsers(cacheUsers.get(companyId));
       setIsLoading(false);
-    })
-    .catch((error) => console.error(error));
-  }, [companyId])
+    } else {
+      fetchUsers(companyId)
+      .then(res => {
+        cacheUsers.set(companyId, res);
+        setUsers(res);
+        setIsLoading(false);
+      })
+      .catch((error) => console.error(error));
+    }
+
+  }, [companyId, cacheUsers.get(companyId)])
 
   return {
     users,
-    isLoading
+    isLoading,
+    cacheUsers
   };
 }
 
