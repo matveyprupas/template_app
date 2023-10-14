@@ -1,14 +1,22 @@
+import { forwardRef } from "react";
 import useForm from "./useForm";
 
-const Input = ({children}) => {
-  const {register} = useForm();
+const Input = forwardRef(({children, ...props}, ref) => {
+  // const {register} = useForm();
+  console.log(props);
 
   return (
     <label>
       {children}
-      <input type="text" {...register('firstName', {required: true})} />
+      <input 
+        {...props}
+        ref={ref} 
+        type="text"
+        // {...register('firstName', {required: true})} 
+
+      />
     </label>
   );
-}
+})
 
 export default Input;

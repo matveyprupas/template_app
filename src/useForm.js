@@ -31,8 +31,12 @@ const useForm = () => {
   // }, [registerObj])
 
   const register = (inputId, optionsObject = {}) => {
+
+    const ref = createRef();
+
     const registeredInput = {
-      ref: registerRef,
+      // ref: registerRef,
+      ref: ref,
       // ...registerObj,
       ...optionsObject
     };
