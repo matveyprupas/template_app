@@ -26,13 +26,12 @@ function ToDoList({tasks, onChangeTasks}) {
   }
 
   const handleMove = (action) => {
-    console.log('tasks', tasks);
     const indexFocusedTask = tasks.findIndex((task, i, arr) => {
       if(focusedTaskId === task.id) return true;
       return false;
     })
+
     if(action === 'up') {
-      console.log('indexFocusedTask', indexFocusedTask);
       if(indexFocusedTask === 0) {
         return;
       }
@@ -44,19 +43,16 @@ function ToDoList({tasks, onChangeTasks}) {
       });
       onChangeTasks([...newTasks]);
     } else if(action === 'down') {
-      console.log('indexFocusedTask', indexFocusedTask);
       if(indexFocusedTask === tasks.length-1) {
         return;
       }
       let newTasks = [...tasks];
-      newTasks.forEach((task, i, arr) => {
-        if(!arr[i+1] || i === 0) return;
-        console.log(arr, arr[i+1].id);
-        if(arr[i-1].id === focusedTaskId) {
-          [arr[i], arr[i-1]] = [arr[i-1], arr[i]];
+      for(let i = 0; i < newTasks.length; i++) {
+        if(newTasks[i].id === focusedTaskId) {
+          [newTasks[i], newTasks[i+1]] = [newTasks[i+1], newTasks[i]];
+          break;
         }
-      });
-      console.log('newTasks ', newTasks);
+      }
       onChangeTasks([...newTasks]);
     }
   }
