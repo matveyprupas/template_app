@@ -1,30 +1,35 @@
-import { useState } from "react";
+import { useMemo } from 'react';
 import './App.css';
-import UsersList from "./UsersList";
+import useFilteredUsers from './useFilteredUsers';
 
 function App() {
 
-  const [companyId, setCompanyId] = useState(-1);
+  const filterObject = useMemo(()=>({
+    age: "3",
+    name: "Matvey_19"
+  }), []);
 
-  const clickHandler = (event) => {
-    if(event.target.tagName !== "INPUT") return;
-    setCompanyId(+event.target.value);
-  }
+  const {users, isLoading} = useFilteredUsers(filterObject);
 
-  // console.log('APP RENDERS');
+  console.log('APP RENDERS');
 
   return (
     <div className="App">
-      <h1>Users by company ID</h1>
-      <div onClick={clickHandler}>
-        <input type="radio" id="contactChoice1" name="contact" value="1" />
-        <label htmlFor="contactChoice1">Company 1</label>
-        <input type="radio" id="contactChoice2" name="contact" value="2" />
-        <label htmlFor="contactChoice2">Company 2</label>
-        <input type="radio" id="contactChoice3" name="contact" value="3" />
-        <label htmlFor="contactChoice3">Company 3</label>
-      </div>
-      <UsersList companyId={companyId}/>
+      <h1>Filter users list</h1>
+      {
+        isLoading ? 
+        'Users are loading...' : 
+        <ul>
+          {
+            !users.length ? 
+            'There is no users' :
+            users.map(user => (
+              <li key={user.name}>{user.name}</li>
+            ))
+          }
+        </ul>
+      }
+      
     </div>
   );
 }
