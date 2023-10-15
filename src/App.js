@@ -1,20 +1,38 @@
-import { useState } from "react";
+import { useState } from 'react';
 import './App.css';
-import UsersList from "./UsersList";
-import SearchInput from "./SearchInput";
+import InputFiels from './InputFiels';
+import useUsers from './useUsers';
 
 function App() {
 
-  const [searchName, setSearchName] = useState('');
+  const [searchText, setSearchText] = useState('');
+
+  const {users, isLoading} = useUsers(searchText);
+
+  const handleSearch = (string) => {
+    setSearchText(string);
+  }
 
   console.log('APP RENDERS');
 
   return (
     <div className="App">
-      <h1>Users by company ID</h1>
-      <SearchInput value={searchName} onChange={setSearchName} />
-
-      <UsersList searchName={searchName} />
+      <h1>Search users</h1>
+      <InputFiels
+        onSearch={handleSearch}
+      />
+      {
+        isLoading ? 
+        'Users are loading...' : 
+        !users.length ? 
+        'There is NO users' :
+        <ul>
+          {users.map(user => (
+            <li key={user.name}>{user.name}</li>
+          ))}
+        </ul>
+      }
+      
     </div>
   );
 }
